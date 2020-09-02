@@ -20,24 +20,28 @@ app.get("/", function(req, res) {
 
   app.get("/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "/public/notes.html"));
+    
   });
 
+  // Displays all notes
   app.get("/api/notes", function(req, res) {
     res.json(dbJSON);
   });
   
   app.post("/api/notes", function(req, res) {
+    var newNotes = req.body;
+
+    dbJSON.push(newNotes);
+
+    res.json(newNotes);
+  });
+
+  app.delete("/api/notes/:id", function(req, res) {
     
   });
 
-  app.post("/api/notes", function(req, res) {
-    
-  });
+  
 
-  app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "/public/index.html"));
-  }); 
-   
 // Server listening...
   app.listen(PORT, function() {
     console.log("App listening on http://localhost:" + PORT);
